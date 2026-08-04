@@ -13,8 +13,10 @@ def get_price(symbol: str) -> float:
         return float(json.loads(resp.read().decode())["price"])
 
 def send_telegram(text: str) -> None:
-    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-    payload = json.dumps({"chat_id": TELEGRAM_CHAT_ID, "text": text, "parse_mode": "HTML"}).encode()
+    token = os.environ.get("TELEGRAM_BOT_TOKEN") or TELEGRAM_BOT_TOKEN
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID") or TELEGRAM_CHAT_ID
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    payload = json.dumps({"chat_id": chat_id, "text": text, "parse_mode": "HTML"}).encode()
     req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
     urllib.request.urlopen(req, timeout=10)
 
