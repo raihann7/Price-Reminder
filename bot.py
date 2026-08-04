@@ -24,11 +24,7 @@ def send_telegram(text: str) -> None:
 def trigger_check():
     btc = get_price("BTCUSDT")
     sol = get_price("SOLUSDT")
-    msg = (
-        f"<b>Crypto Price Update</b>\n"
-        f"BTC = <b>${btc:,.2f}</b>\n"
-        f"SOL = <b>${sol:,.2f}</b>\n"
-    )
+    msg = f"BTC=<b>${btc:,.2f}</b> | SOL=<b>${sol:,.2f}</b>"
     send_telegram(msg)
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
