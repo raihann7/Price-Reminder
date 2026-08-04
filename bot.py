@@ -7,10 +7,13 @@ TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "8080832559:AAHnDO1ORZ
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "-1003857108371")
 
 def get_price(symbol: str) -> float:
-    url = f"https://api.binance.com/api/v3/ticker/price?symbol={symbol}"
+    # Transform BTCUSDT -> BTC-USD for Coinbase API
+    pair = f"{symbol[:3]}-USD"
+    url = f"https://api.coinbase.com/v2/prices/{pair}/spot"
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
     with urllib.request.urlopen(req, timeout=10) as resp:
-        return float(json.loads(resp.read().decode())["price"])
+        data = json.loads(resp.read().decode())
+        return float(data["data"]["amount"])
 
 def send_telegram(text: str) -> None:
     token = os.environ.get("TELEGRAM_BOT_TOKEN") or TELEGRAM_BOT_TOKEN
