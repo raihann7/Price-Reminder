@@ -13,8 +13,8 @@ def get_price(symbol: str) -> float:
     with urllib.request.urlopen(req, timeout=10) as resp:
         return float(json.loads(resp.read().decode())["data"]["amount"])
 
-GOLD_BOT_TOKEN = os.environ.get("GOLD_BOT_TOKEN", "BOT_TOKEN_GOLD_ANDA")
-GOLD_CHAT_ID = os.environ.get("GOLD_CHAT_ID", "CHAT_ID_GOLD_ANDA")
+GOLD_BOT_TOKEN = os.environ.get("GOLD_BOT_TOKEN", "8749995434:AAEr1coXhXhzGGhtyY8tzT1gLNn2jOcp3HA")
+GOLD_CHAT_ID = os.environ.get("GOLD_CHAT_ID", "-1004430079255")
 
 def get_gold_price() -> float:
     url = "https://api.coinbase.com/v2/prices/PAXG-USD/spot"
